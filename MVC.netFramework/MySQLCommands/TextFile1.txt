@@ -1,0 +1,8 @@
+﻿SELECT
+  Books.Title, Books.Author, Books.Cover,Rent_time, Users.Login
+FROM
+  Rents
+  INNER JOIN Books
+    ON Rents.Book_id = Books.ID
+    Inner JOin Users
+    On Rents.User_login = Users.Id

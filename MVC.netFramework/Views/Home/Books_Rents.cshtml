@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Books_Rents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Books_Rents</h2>
+
+<h3>Already rented books:</h3>
+@foreach (MVC.netFramework.Models.RentedBooksModel details in Model)
+{
+    <div class="books">
+        <p>@details.Title</p>
+        <p>@details.Author</p>
+        <p>@details.Cover</p>
+        <p>@details.User</p>
+        <p>@details.RentialDate</p>
+    </div>
+
+}
+<h3>Books rented by you</h3>
+@foreach (MVC.netFramework.Models.RentedBooksModel details in Model)
+{
+
+    if (details.User == Session["UserID"].ToString())
+    {
+        <div class="books">
+            <p>@details.Title</p>
+            <p>@details.Author</p>
+            <p>@details.Cover</p>
+            <p>@details.User</p>
+            <p>@details.RentialDate</p>
+        </div>
+    }
+}
+<style>
+    .books {
+        display: flex;
+    }
+
+        .books p {
+            margin: 20px;
+        }
+</style>
+

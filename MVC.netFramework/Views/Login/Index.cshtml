@@ -1,0 +1,30 @@
+﻿@model MVC.netFramework.Models.LoginModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+@if (ViewBag.error != null)
+{
+    @ViewBag.error
+}
+@using (Html.BeginForm("Authorize", "Login", FormMethod.Post))
+{
+    <div>
+        <p>@Html.LabelFor(model => model.Login)</p>
+        <p>@Html.EditorFor(model => model.Login)</p>
+        <p>@Html.ValidationMessageFor(model => model.Login)</p>
+    </div>
+
+    <div>
+        <p>@Html.LabelFor(model => model.Password)</p>
+        <p>@Html.EditorFor(model => model.Password)</p>
+        <p>@Html.ValidationMessageFor(model => model.Password)</p>
+    </div>
+    <div>
+        <input type="submit" name="name" value="Login" />
+    </div>
+
+}
+
