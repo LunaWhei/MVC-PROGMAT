@@ -20,7 +20,7 @@ namespace MVC.netFramework.Controllers
         [HttpPost]
         public ActionResult Authorize(LoginModel model)
         {
-            List<LoginModel> list1 = new List<LoginModel>();
+            
 
             MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
             string query = "select * from Users where `login` =" + "\""+model.Login + "\""+"AND Password ="+"\""+model.Password+"\"";

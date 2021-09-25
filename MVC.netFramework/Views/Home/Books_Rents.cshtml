@@ -1,23 +1,30 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Books_Rents";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Books_Rents</h2>
-
+<h1>    @ViewBag.ReturnBookID </h1>
 <h3>Already rented books:</h3>
+
 @foreach (MVC.netFramework.Models.RentedBooksModel details in Model)
 {
-    <div class="books">
-        <p>@details.Title</p>
-        <p>@details.Author</p>
-        <p>@details.Cover</p>
-        <p>@details.User</p>
-        <p>@details.RentialDate</p>
-    </div>
+    using (Html.BeginForm("Delete", "Home", FormMethod.Post))
+    {
+<div class="books">
+    <p> @Html.ValueFor(Model => details.Title)</p>
+   
+    <p>@details.Author</p>
+    <p>@details.Cover</p>
+    <p>@details.User</p>
+    <p>@details.RentialDate</p>
 
+    <p><input type="submit" name="name" value="delete" /></p>
+</div>
+
+    }
 }
+
 <h3>Books rented by you</h3>
 @foreach (MVC.netFramework.Models.RentedBooksModel details in Model)
 {

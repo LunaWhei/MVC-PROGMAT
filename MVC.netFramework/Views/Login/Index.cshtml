@@ -5,10 +5,7 @@
 }
 
 <h1>Index</h1>
-@if (ViewBag.error != null)
-{
-    @ViewBag.error
-}
+
 @using (Html.BeginForm("Authorize", "Login", FormMethod.Post))
 {
     <div>

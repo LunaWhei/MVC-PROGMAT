@@ -33,7 +33,7 @@ namespace MVC.netFramework.Controllers
             List<RentedBooksModel> list1 = new List<RentedBooksModel>();
 
             MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
-            string query = "SELECT Books.Title, Books.Author, Rents.Book_id, Rents.User_login FROM Books.Cover,Rent_time, Users.Login FROM Rents INNER JOIN Books ON Rents.Book_id = Books.ID Inner JOin Users On Rents.User_login = Users.Id";
+            string query = "SELECT Books.Title, Books.Author, Rents.Book_id, Rents.User_login, Books.Cover,Rent_time, Users.Login FROM Rents INNER JOIN Books ON Rents.Book_id = Books.ID Inner JOin Users On Rents.User_login = Users.Id";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
 
@@ -44,6 +44,8 @@ namespace MVC.netFramework.Controllers
             {
                     list1.Add(new RentedBooksModel
                     {
+                        BookID = dr["Book_id"].ToString(),
+                        UserID = dr["User_Login"].ToString(),
                         Title = dr["Title"].ToString(),
                         Author = dr["Author"].ToString(),
                         Cover = dr["Cover"].ToString(),
@@ -62,6 +64,11 @@ namespace MVC.netFramework.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+        }
+        public ActionResult Delete(RentedBooksModel model)
+        {
+            ViewBag.ReturnBookID = model.Title.ToString();
+            return RedirectToAction("Books_Rents", "Home");
         }
 
         public ActionResult Contact()
