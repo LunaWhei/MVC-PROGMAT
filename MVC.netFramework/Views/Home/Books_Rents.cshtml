@@ -1,4 +1,4 @@
-﻿@{
+﻿
     ViewBag.Title = "Books_Rents";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -7,18 +7,35 @@
 <h1>    @ViewBag.ReturnBookID </h1>
 <h3>Already rented books:</h3>
 
-@foreach (MVC.netFramework.Models.RentedBooksModel details in Model)
+@foreach (MVC.netFramework.Models.RentedBooksModel d in Model)
 {
     using (Html.BeginForm("Delete", "Home", FormMethod.Post))
     {
 <div class="books">
-    <p> @Html.ValueFor(Model => details.Title)</p>
-   
-    <p>@details.Author</p>
-    <p>@details.Cover</p>
-    <p>@details.User</p>
-    <p>@details.RentialDate</p>
+    <p>
+        @Html.Hidden("Title", d.Title)
 
+    </p>
+    <p>
+        @Html.ValueFor(Model => d.Author)
+
+    </p>
+
+
+    <p>
+        @Html.ValueFor(Model => d.Cover)
+
+    </p>
+    <p>
+        @Html.ValueFor(Model => d.User)
+
+    </p>
+    <p>
+        @Html.ValueFor(Model => d.RentialDate)
+
+    </p>
+    @Html.Hidden("BookID", d.BookID)
+    @Html.Hidden("UserID", d.UserID)
     <p><input type="submit" name="name" value="delete" /></p>
 </div>
 

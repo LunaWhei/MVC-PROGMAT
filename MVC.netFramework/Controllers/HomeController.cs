@@ -40,7 +40,7 @@ namespace MVC.netFramework.Controllers
             mysql.Open();
             MySqlDataReader dr = comm.ExecuteReader();
             dr.Read();
-            if (dr != null)
+            if (dr.Read() && dr != null)
             {
                     list1.Add(new RentedBooksModel
                     {
@@ -65,17 +65,27 @@ namespace MVC.netFramework.Controllers
                 return RedirectToAction("Index", "Login");
             }
         }
-        public ActionResult Delete(RentedBooksModel model)
+        [HttpPost]
+        public ActionResult Delete(RentedBooksModel m)
         {
-            ViewBag.ReturnBookID = model.Title.ToString();
+            MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            
+            string query = "DELETE FROM `Rents` WHERE `Book_id` = \""+ m.BookID+ "\" AND `User_login` =\"" + m.UserID+ "\"";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;           
+            MySqlDataReader dr1 = comm.ExecuteReader();
+            dr1.Read();
+            mysql.Open();
+            mysql.Close();
             return RedirectToAction("Books_Rents", "Home");
-        }
+        } 
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
+            
         }
     }
 }
