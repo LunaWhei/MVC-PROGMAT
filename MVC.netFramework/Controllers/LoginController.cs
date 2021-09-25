@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 namespace MVC.netFramework.Controllers
-{
+{ 
     public class LoginController : Controller
     {
         // GET: Login

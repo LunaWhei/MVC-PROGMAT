@@ -12,7 +12,6 @@ namespace MVC.netFramework.Controllers
 {
     public class HomeController : Controller
     {
-
         public ActionResult Index()
         {
             if (Session["userID"] != null)
@@ -36,8 +35,6 @@ namespace MVC.netFramework.Controllers
                             Cover = dr["Cover"].ToString(),
                         }); ;
                     }
-
-
                 }
                 mysql.Close();
                 return View(list1);
@@ -45,8 +42,7 @@ namespace MVC.netFramework.Controllers
             else
             {
                return RedirectToAction("Index", "Login");
-            }
-            
+            }     
         }
 
         public ActionResult Books_Rents()
@@ -54,14 +50,15 @@ namespace MVC.netFramework.Controllers
             if (Session["userID"] != null)
             {
             List<RentedBooksModel> list1 = new List<RentedBooksModel>();
+
             MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
             string query = "SELECT Books.Title, Books.Author, Rents.Book_id, Rents.User_login, Books.Cover,Rent_time, Users.Login FROM Rents INNER JOIN Books ON Rents.Book_id = Books.ID Inner JOin Users On Rents.User_login = Users.Id";
             MySqlCommand comm = new MySqlCommand(query);
+
             comm.Connection = mysql;
-
             mysql.Open();
-            MySqlDataReader dr = comm.ExecuteReader();
 
+            MySqlDataReader dr = comm.ExecuteReader();
             if ( dr != null)
             {
                     foreach (var item in dr)
@@ -83,11 +80,11 @@ namespace MVC.netFramework.Controllers
                     
                 }
             mysql.Close();
-            
             return View(list1);
             }
             else
             {
+                mysql.Close();
                 return RedirectToAction("Index", "Login");
             }
         }
@@ -109,7 +106,6 @@ namespace MVC.netFramework.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
 
             return View();
             
