@@ -19,7 +19,7 @@
                 @Html.ActionLink("Dostępne książki", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul style="display:flex;" class="nav navbar-nav">
 
                     <li>@Html.ActionLink("Books already Rented", "Books_Rents", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -27,7 +27,7 @@
                     {
                         using(Html.BeginForm("Logout", "Login", FormMethod.Post))
                          {
-                        <li><input type="submit" name="name" value="Logout" /></li>
+                        <li style=" height: 100%; display: flex;"><input type="submit" name="name" value="Logout" /></li>
                          }
                     }
                 </ul>

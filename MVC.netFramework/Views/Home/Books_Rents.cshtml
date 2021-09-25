@@ -1,69 +1,95 @@
 ﻿
-    ViewBag.Title = "Books_Rents";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Books_Rents</h2>
-<h1>    @ViewBag.ReturnBookID </h1>
-<h3>Already rented books:</h3>
+<h2>Wypożyczone książki</h2>
 
-@foreach (MVC.netFramework.Models.RentedBooksModel d in Model)
-{
-    using (Html.BeginForm("Delete", "Home", FormMethod.Post))
+<h3>Wszystkiw wypożyczone książki:</h3>
+<table>
+    <tr>
+        <th>Tytuł</th>
+        <th>Autor</th>
+        <th>Rodzaj okładki</th>
+        <th>Właściciel</th>
+        <th>Data wypożyczenia</th>
+    </tr>
+    @foreach (MVC.netFramework.Models.RentedBooksModel details in Model)
     {
-<div class="books">
-    <p>
-        @Html.Hidden("Title", d.Title)
-
-    </p>
-    <p>
-        @Html.ValueFor(Model => d.Author)
-
-    </p>
-
-
-    <p>
-        @Html.ValueFor(Model => d.Cover)
-
-    </p>
-    <p>
-        @Html.ValueFor(Model => d.User)
-
-    </p>
-    <p>
-        @Html.ValueFor(Model => d.RentialDate)
-
-    </p>
-    @Html.Hidden("BookID", d.BookID)
-    @Html.Hidden("UserID", d.UserID)
-    <p><input type="submit" name="name" value="delete" /></p>
-</div>
-
+<tr>
+    <td>@details.Title</td>
+    <td>@details.Author</td>
+    <td>@details.Cover</td>
+    <td>@details.User</td>
+    <td>@details.RentialDate</td>
+</tr>
     }
-}
+</table>
+    <h3>Książki wypożyczone przez użytkownika o loginie: @Session["UserID"].ToString()</h3>
+    <table>
+        <tr>
+            <th>Tytuł</th>
+            <th>Autor</th>
+            <th>Rodzaj okładki</th>
+            <th>Właściciel</th>
+            <th>Data wypożyczenia</th>
+            <th>Oddaj książkę</th>
+        </tr>
+        @foreach (MVC.netFramework.Models.RentedBooksModel d in Model)
+        {
+            if (d.User == Session["UserID"].ToString())
+            {
+                using (Html.BeginForm("Delete", "Home", FormMethod.Post))
+                {
+                    <tr>
 
-<h3>Books rented by you</h3>
-@foreach (MVC.netFramework.Models.RentedBooksModel details in Model)
-{
+                        <td>@Html.ValueFor(Model => d.Title)</td>
+                        <td>@Html.ValueFor(Model => d.Author)</td>
+                        <td>@Html.ValueFor(Model => d.Cover)</td>
+                        <td>@Html.ValueFor(Model => d.User)</td>
+                        <td>@Html.ValueFor(Model => d.RentialDate)</td>
 
-    if (details.User == Session["UserID"].ToString())
-    {
-        <div class="books">
-            <p>@details.Title</p>
-            <p>@details.Author</p>
-            <p>@details.Cover</p>
-            <p>@details.User</p>
-            <p>@details.RentialDate</p>
-        </div>
-    }
-}
-<style>
-    .books {
-        display: flex;
-    }
 
-        .books p {
-            margin: 20px;
+                        @Html.Hidden("BookID", d.BookID)
+                        @Html.Hidden("UserID", d.UserID)
+                        <td style="background: #cecece;padding:0px 0px"><button style="background:unset;border: 0px; width: 100%" type="submit" name="name"  >Oddaj</button></td>
+
+                    </tr>
+                }
+            }
         }
-</style>
+    </table>
+    <style>
+        .books {
+            display: flex;
+        }
+
+            .books p {
+                margin: 20px;
+            }
+
+
+        .books {
+            display: flex;
+        }
+
+            .books p {
+                margin: 20px;
+            }
+
+        table, td, th {
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 15px;
+            min-width: 33%;
+            border: 1px solid #ddd;
+            text-align: left;
+            width: 200px;
+        }
+    </style>
 
