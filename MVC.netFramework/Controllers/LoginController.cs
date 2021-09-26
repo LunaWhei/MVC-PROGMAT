@@ -20,23 +20,31 @@ namespace MVC.netFramework.Controllers
         [HttpPost]
         public ActionResult Authorize(LoginModel model)
         {
-            
 
-            MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
-            string query = "select * from Users where `login` =" + "\""+model.Login + "\""+"AND Password ="+"\""+model.Password+"\"";
-            MySqlCommand comm = new MySqlCommand(query);
-            comm.Connection = mysql;
-           
-            mysql.Open();
-            MySqlDataReader dr = comm.ExecuteReader();
-            dr.Read();
-            if (dr != null)
+            try
             {
-                Session["userID"] = dr["Login"].ToString();
-                Session["userID_ID"] = dr["ID"].ToString();
+                MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+                string query = "select * from Users where `login` =" + "\"" + model.Login + "\"" + "AND Password =" + "\"" + model.Password + "\"";
+                MySqlCommand comm = new MySqlCommand(query);
+                comm.Connection = mysql;
+
+                mysql.Open();
+                MySqlDataReader dr = comm.ExecuteReader();
+                dr.Read();
+                if (dr != null)
+                {
+                    Session["userID"] = dr["Login"].ToString();
+                    Session["userID_ID"] = dr["ID"].ToString();
+                }
+                mysql.Close();
+                return RedirectToAction("Index", "Home");
             }
-            mysql.Close();
-            return RedirectToAction("Index","Home");
+            catch (Exception)
+            {
+                TempData["name"] = "Niestety wystąpił problem podczas logowania";
+                return RedirectToAction("Index", "Login");
+            }
+            
         }
         [HttpPost]
         public ActionResult Logout()

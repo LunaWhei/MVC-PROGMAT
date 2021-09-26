@@ -1,6 +1,7 @@
 ﻿@model MVC.netFramework.Models.LoginModel
-<h1>Index</h1>
+<h1>Logowanie:</h1>
 
+<p style="color:red; font-size:large">@TempData["name"]</p>
 @using (Html.BeginForm("Authorize", "Login", FormMethod.Post))
 {
     <div>
@@ -23,29 +24,28 @@
 }
 <h4>Dostępne loginy:</h4>
 <div style="display:flex">
-    
+
     <div class="w200">
         <p>l:admin</p>
         <p>h:Admin2020!</p>
     </div>
     <div class="w200">
         <p>l:PROGMAT</p>
-        <p>h:hasło</p>
+        <p>h:haslo</p>
     </div>
     <div class="w200">
         <p>l:Martyna</p>
-        <p>h:Hasło123</p>
+        <p>h:Haslo123</p>
     </div>
 </div>
 
 <style>
-    .w200
-    {
-        width:200px;
+    .w200 {
+        width: 200px;
         border: solid 1px #cecece;
     }
-    .w200 p
-    {
-        padding:20px;
-    }
+
+        .w200 p {
+            padding: 20px;
+        }
 </style>
