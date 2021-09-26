@@ -8,28 +8,43 @@
     <tr>
         <th>Tytuł</th>
         <th>Autor</th>
-        <th>Rodzaj okładki</th>
+        <th>Opis</th>
     </tr>
 
     @foreach (MVC.netFramework.Models.RentedBooksModel e in Model)
     {
-        using (Html.BeginForm("Rent", "Home", FormMethod.Post))
-        {
+
 
 <tr>
     <td>@Html.ValueFor(Model => e.Title)</td>
     <td>@Html.ValueFor(Model => e.Author)</td>
-    <td>@Html.ValueFor(Model => e.Cover)</td> 
+    <td>@Html.ValueFor(Model => e.Cover)</td>
 
-
-    @Html.Hidden("BookID", e.BookID)
-    @Html.Hidden("UserID", Session["userID_ID"].ToString())
-    <td><button style="background:unset;border: 0px; width: 100%" type="submit" name="name">Wypożycz</button></td>
+    @using (Html.BeginForm("Rent", "Home", FormMethod.Post))
+    {
+        @Html.Hidden("BookID", e.BookID)
+        @Html.Hidden("UserID", Session["userID_ID"].ToString())
+        <td><button style="background:unset;border: 0px; width: 100%" type="submit" name="name">Wypożycz</button></td>
+    }
+    @using (Html.BeginForm("Edit", "Home", FormMethod.Post))
+    {
+        @Html.Hidden("Title", e.Title)
+        @Html.Hidden("Author", e.Author)
+        @Html.Hidden("Cover", e.Cover)
+        @Html.Hidden("BookID", e.BookID)
+        <td><button style="background:unset;border: 0px; width: 100%" id="target" name="name">Edytuj</button></td>
+    }
 </tr>
-        }
-
+        
+        
     }
 </table>
+
+<script>
+    $("#target").click(function () {
+        alert("Handler for .click() called.");
+    });
+</script>
     <style>
 
         .books {

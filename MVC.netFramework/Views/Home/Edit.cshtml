@@ -1,0 +1,31 @@
+﻿@model MVC.netFramework.Models.BookModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("SaveChanges", "Home", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <th>@Html.LabelFor(Model => Model.Title)</th>
+            <th>@Html.LabelFor(model => model.Author)</th>
+            <th>@Html.LabelFor(model => model.Cover)</th>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(model => model.Title)</td>
+            <td>@Html.TextBoxFor(model => model.Author)</td>
+            <td>@Html.TextBoxFor(model => model.Cover)</td>
+            @Html.HiddenFor(model => model.BookID)
+
+        </tr>
+        <tr>
+            <td><input type="submit" name="name" value="Zapisz zmiany" /></td>
+        </tr>
+    </table>
+
+}
+
+

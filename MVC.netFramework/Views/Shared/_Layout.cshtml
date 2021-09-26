@@ -21,9 +21,9 @@
             <div class="navbar-collapse collapse">
                 <ul style="display:flex;" class="nav navbar-nav">
 
-                    <li>@Html.ActionLink("Books already Rented", "Books_Rents", "Home")</li>
-                    <li>@Html.ActionLink("Add new Book", "AddNewBook", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Wypożyczenia", "Books_Rents", "Home")</li>
+                    <li>@Html.ActionLink("Dodaj nową książkę", "AddNewBook", "Home")</li>
+                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                     @if (Session["UserID"] != null)
                     {
                         using (Html.BeginForm("Logout", "Login", FormMethod.Post))
@@ -39,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Kacper Osiadło</p>
         </footer>
     </div>
 

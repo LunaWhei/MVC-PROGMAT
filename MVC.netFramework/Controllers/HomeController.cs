@@ -151,5 +151,40 @@ namespace MVC.netFramework.Controllers
             mysql.Close();
             return RedirectToAction("AddNewBook", "Home");
         }
+
+        public ActionResult Edit(BookModel s)
+        {
+            if (Session["userID"] != null)
+            {
+                return View(s);
+            }
+            else
+            {
+                return View("index", "home");
+            }
+        }
+        public ActionResult SaveChanges(BookModel s)
+        {
+            try
+            {
+
+
+            MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+          
+            string query = "UPDATE `Books` SET `Title` = '" + s.Title + "', `Author` = '" + s.Author + "', `Cover` = '" + s.Cover + "' WHERE `Books`.`ID` = " + s.BookID + ";";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr2 = comm.ExecuteReader();
+            dr2.Read();
+            mysql.Close();
+            return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+                return View("Index", "home");
+             
+            }
+        }
     }
 }

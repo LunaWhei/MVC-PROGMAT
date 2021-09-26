@@ -14,5 +14,6 @@ namespace MVC.netFramework.Models
         public string Author { get; set; }
         [DisplayName("Opis")]
         public string Cover { get; set; }
+        public string BookID { get; set; }
     }
 }
