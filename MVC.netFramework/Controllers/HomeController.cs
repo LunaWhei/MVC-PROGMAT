@@ -18,7 +18,7 @@ namespace MVC.netFramework.Controllers
             {
                 List<RentedBooksModel> list1 = new List<RentedBooksModel>();
                 MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
-                string query = "SELECT * FROM Books WHERE Books.ID NOT IN (SELECT Book_ID FROM Rents)";
+                string query = "SELECT D.* FROM Books D WHERE NOT EXISTS(SELECT Book_id FROM Rents c WHERE D.Id = c.Book_id)";
                 MySqlCommand comm = new MySqlCommand(query);
                 comm.Connection = mysql;
 
@@ -33,6 +33,7 @@ namespace MVC.netFramework.Controllers
                             Title = dr["Title"].ToString(),
                             Author = dr["Author"].ToString(),
                             Cover = dr["Cover"].ToString(),
+                            BookID = dr["ID"].ToString(),
                         }); ;
                     }
                 }
@@ -84,7 +85,7 @@ namespace MVC.netFramework.Controllers
             }
             else
             {
-                mysql.Close();
+               
                 return RedirectToAction("Index", "Login");
             }
         }
@@ -103,12 +104,52 @@ namespace MVC.netFramework.Controllers
             mysql.Close();
             return RedirectToAction("Books_Rents", "Home");
         } 
+        [HttpPost]
+        public ActionResult Rent(RentedBooksModel s)
+        {
+            MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
 
+            string query = "INSERT INTO `Rents` (`ID`, `Book_id`, `User_login`, `Rent_time`) VALUES (NULL, '"+s.BookID+"', '"+s.UserID+"', CURRENT_TIMESTAMP)";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr2 = comm.ExecuteReader();
+            dr2.Read();
+
+            mysql.Close();
+            return RedirectToAction("Index", "Home");
+        }
         public ActionResult Contact()
         {
 
             return View();
             
+        }
+        public ActionResult AddNewBook()
+        {
+            if (Session["userID"] != null)
+            {
+                return View();
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+        public ActionResult AddBookToLib(BookModel s)
+        {
+            MySqlConnection mysql = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+
+            string query = "INSERT INTO `Books` (`Title`, `Author`, `Cover`, `ID`) VALUES ('"+s.Title+"', '"+s.Author+"', '"+s.Cover+"', NULL);";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr2 = comm.ExecuteReader();
+            dr2.Read();
+
+            mysql.Close();
+            return RedirectToAction("AddNewBook", "Home");
         }
     }
 }

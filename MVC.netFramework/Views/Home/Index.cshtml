@@ -11,17 +11,22 @@
         <th>Rodzaj okładki</th>
     </tr>
 
-    @foreach (MVC.netFramework.Models.RentedBooksModel details in Model)
+    @foreach (MVC.netFramework.Models.RentedBooksModel e in Model)
     {
+        using (Html.BeginForm("Rent", "Home", FormMethod.Post))
+        {
+
+<tr>
+    <td>@Html.ValueFor(Model => e.Title)</td>
+    <td>@Html.ValueFor(Model => e.Author)</td>
+    <td>@Html.ValueFor(Model => e.Cover)</td> 
 
 
-        <tr>
-            <td>@details.Title</td>
-            <td>@details.Author</td>
-            <td>@details.Cover</td>
-            <td><button>Wypożycz</button></td>
-        </tr>
-
+    @Html.Hidden("BookID", e.BookID)
+    @Html.Hidden("UserID", Session["userID_ID"].ToString())
+    <td><button style="background:unset;border: 0px; width: 100%" type="submit" name="name">Wypożycz</button></td>
+</tr>
+        }
 
     }
 </table>

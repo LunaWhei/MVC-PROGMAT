@@ -166,6 +166,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RentedBooksModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -209,6 +210,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Books_Rents.cshtml" />
+    <Content Include="Views\Home\AddNewBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

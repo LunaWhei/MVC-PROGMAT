@@ -1,0 +1,29 @@
+﻿@model MVC.netFramework.Models.BookModel
+<h1>Index</h1>
+
+
+@using (Html.BeginForm("AddBookToLib", "Home", FormMethod.Post))
+{
+
+    <div style="display:flex;">
+        <div>
+            <p>@Html.LabelFor(model => model.Title)</p>
+            @Html.TextBoxFor(mmodel => Model.Title, new { maxlength = "20" });
+
+        </div>
+        <div>
+            <p>@Html.LabelFor(model => model.Author)</p>
+            @Html.TextBoxFor(mmodel => Model.Author, new { maxlength = "20" });
+
+        </div>
+        <div>
+            <p>@Html.LabelFor(model => model.Cover)</p>
+            @Html.TextBoxFor(mmodel => Model.Cover, new { maxlength = "20" });
+
+        </div>
+        <div>
+            <input type="submit" name="name" value="Dodaj" />
+        </div>
+    </div>
+
+}

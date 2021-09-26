@@ -33,6 +33,7 @@ namespace MVC.netFramework.Controllers
             if (dr != null)
             {
                 Session["userID"] = dr["Login"].ToString();
+                Session["userID_ID"] = dr["ID"].ToString();
             }
             mysql.Close();
             return RedirectToAction("Index","Home");

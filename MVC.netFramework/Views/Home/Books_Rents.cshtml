@@ -32,23 +32,23 @@
             <th>Data wypożyczenia</th>
             <th>Oddaj książkę</th>
         </tr>
-        @foreach (MVC.netFramework.Models.RentedBooksModel d in Model)
+        @foreach (MVC.netFramework.Models.RentedBooksModel f in Model)
         {
-            if (d.User == Session["UserID"].ToString())
+            if (f.User == Session["UserID"].ToString())
             {
                 using (Html.BeginForm("Delete", "Home", FormMethod.Post))
                 {
                     <tr>
 
-                        <td>@Html.ValueFor(Model => d.Title)</td>
-                        <td>@Html.ValueFor(Model => d.Author)</td>
-                        <td>@Html.ValueFor(Model => d.Cover)</td>
-                        <td>@Html.ValueFor(Model => d.User)</td>
-                        <td>@Html.ValueFor(Model => d.RentialDate)</td>
+                        <td>@Html.ValueFor(Model => f.Title)</td>
+                        <td>@Html.ValueFor(Model => f.Author)</td>
+                        <td>@Html.ValueFor(Model => f.Cover)</td>
+                        <td>@Html.ValueFor(Model => f.User)</td>
+                        <td>@Html.ValueFor(Model => f.RentialDate)</td>
 
 
-                        @Html.Hidden("BookID", d.BookID)
-                        @Html.Hidden("UserID", d.UserID)
+                        @Html.Hidden("BookID", f.BookID)
+                        @Html.Hidden("UserID", f.UserID)
                         <td style="background: #cecece;padding:0px 0px"><button style="background:unset;border: 0px; width: 100%" type="submit" name="name"  >Oddaj</button></td>
 
                     </tr>
